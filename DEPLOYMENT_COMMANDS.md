@@ -24,7 +24,7 @@ git checkout main
 # git checkout -b main
 
 # 4. Merge your feature branch into main
-git merge copilot/refactor-code-structure
+git merge your-feature-branch  # Replace with your actual branch name
 
 # 5. Push to main (this triggers automatic deployment)
 git push origin main
@@ -42,7 +42,7 @@ git add .
 git commit -m "Your description of changes"
 
 # 2. Push your current branch directly to main on remote
-git push origin copilot/refactor-code-structure:main
+git push origin your-feature-branch:main  # Replace your-feature-branch with your actual branch name
 
 # 3. Wait 1-2 minutes for automatic deployment
 # Then visit: https://laxminarayan24.github.io/Happy-Birthday/
@@ -52,12 +52,12 @@ git push origin copilot/refactor-code-structure:main
 
 ```bash
 # 1. Push your current branch to GitHub
-git push origin copilot/refactor-code-structure
+git push origin your-feature-branch  # Replace with your actual branch name
 
 # 2. Go to GitHub in your browser:
 #    https://github.com/LAXMINARAYAN24/Happy-Birthday
 
-# 3. Create a Pull Request from copilot/refactor-code-structure to main
+# 3. Create a Pull Request from your-feature-branch to main
 
 # 4. Review the changes and merge the PR on GitHub
 

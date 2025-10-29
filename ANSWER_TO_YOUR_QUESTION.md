@@ -14,7 +14,7 @@
 git add .
 git commit -m "Your changes description"
 git checkout main
-git merge copilot/refactor-code-structure
+git merge your-feature-branch  # Replace with your actual branch name
 git push origin main
 ```
 
@@ -24,7 +24,7 @@ git push origin main
 # Option 2: Push current branch directly to main (faster)
 git add .
 git commit -m "Your changes description"
-git push origin copilot/refactor-code-structure:main
+git push origin your-feature-branch:main  # Replace your-feature-branch with your actual branch name
 ```
 
 ### Do You Need to Deploy Again?
