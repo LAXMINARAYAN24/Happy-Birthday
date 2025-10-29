@@ -1,6 +1,8 @@
 
 # Deployment Guide
 
+**🚀 Quick Terminal Commands:** See [DEPLOYMENT_COMMANDS.md](DEPLOYMENT_COMMANDS.md) for copy-paste ready commands!
+
 This guide explains how to deploy the Happy Birthday animation to GitHub Pages and how your code changes will reflect on the live site.
 
 ## How Your Code Changes Reflect on the Site

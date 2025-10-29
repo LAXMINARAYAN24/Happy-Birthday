@@ -4,6 +4,8 @@
 
 Your code changes will reflect on the live site **when you push them to the `main` branch**. It takes 1-2 minutes for GitHub Actions to automatically deploy.
 
+**🚀 No manual deployment needed - it's automatic!**
+
 ## Step-by-Step
 
 ```bash
@@ -56,4 +58,5 @@ git branch
 
 ## More Help
 
-For detailed deployment information, see [DEPLOYMENT.md](DEPLOYMENT.md)
+📖 **Complete Terminal Commands:** [DEPLOYMENT_COMMANDS.md](DEPLOYMENT_COMMANDS.md)  
+📖 **Detailed Deployment Info:** [DEPLOYMENT.md](DEPLOYMENT.md)
