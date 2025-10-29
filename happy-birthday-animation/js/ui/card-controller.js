@@ -22,9 +22,6 @@
       }
     }
 
-    window.showGreeting = () => setState(true);
-    window.hideGreeting = () => setState(false);
-
     btn.addEventListener('click', () => setState(overlay.classList.contains('hidden')));
 
     // close on Escape
@@ -37,7 +34,30 @@
       if (e.target === overlay) setState(false);
     });
 
-    // edit this coded-open time as needed; countdown.js will use it if present
-    window.CODED_OPEN_AT = new Date('2025-10-29T15:07:00');
+    // // edit this coded-open time as needed; countdown.js will use it if present
+    // window.CODED_OPEN_AT = new Date('2025-10-29T15:48:00');
+  });
+})();
+
+// Add body class when the card overlay becomes visible
+(function () {
+  const overlay = document.getElementById('cardOverlay');
+  if (!overlay) return;
+
+  const update = () => {
+    const visible = !overlay.classList.contains('hidden') && overlay.offsetParent !== null;
+    document.body.classList.toggle('card-open', visible);
+  };
+
+  // Observe class/style changes that toggle visibility
+  const mo = new MutationObserver(update);
+  mo.observe(overlay, { attributes: true, attributeFilter: ['class', 'style'] });
+
+  // Run once on load
+  update();
+
+  // Also clear on Escape if your code closes the card
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') document.body.classList.remove('card-open');
   });
 })();

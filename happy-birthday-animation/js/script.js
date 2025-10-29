@@ -4,7 +4,7 @@
   const ctx = canvas.getContext('2d');
 
   const opts = {
-    strings: ["HAPPY", "BIRTHDAY GEETU❤️"],
+    strings: ["HAPPY", "BIRTHDAYGEETU❤️"],
     charSize: 44,
     charSpacing: 62,
     lineHeight: 72,
@@ -38,7 +38,9 @@
     balloonBaseVel: 0.36,
     balloonAddedVel: 0.5,
     balloonBaseRadian: -(Math.PI / 2 - 0.4),
-    balloonAddedRadian: -0.9
+    balloonAddedRadian: -0.9,
+    // move animation DOWN (px). Tweak this value.
+    centerOffset: 160
   };
 
   let DPR = Math.max(window.devicePixelRatio || 1, 1);
@@ -301,6 +303,7 @@
 
     ctx.save();
     ctx.setTransform(DPR,0,0,DPR,0,0);
+    // clear with transparency (do not paint a dark background)
     ctx.clearRect(0,0,canvas.width, canvas.height);
 
     ctx.fillStyle = '#7c44a0ff';
@@ -315,7 +318,8 @@
     ctx.restore();
 
     ctx.save();
-    ctx.translate(hw, hh);
+    // was: ctx.translate(hw, hh);
+    ctx.translate(hw, hh + (opts.centerOffset || 0)); // shift animation down
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.font = `${opts.charSize}px Verdana`;
