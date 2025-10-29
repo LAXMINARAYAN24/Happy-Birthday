@@ -13,7 +13,7 @@
   if (!overlay || !elems.days) return;
 
   // target: prefer CODED_OPEN_AT if provided by page, otherwise fallback
-  const fallbackTarget = new Date('2025-10-29T19:15:00');
+  const fallbackTarget = new Date('2025-10-29T19:40:00');
   const targetDate = (typeof CODED_OPEN_AT !== 'undefined' && CODED_OPEN_AT instanceof Date && !isNaN(CODED_OPEN_AT))
     ? CODED_OPEN_AT.getTime()
     : fallbackTarget.getTime();
