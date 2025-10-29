@@ -13,7 +13,7 @@ A beautiful web-based birthday animation with colorful letters and fireworks! Se
 4. GitHub Actions will automatically deploy in 1-2 minutes
 5. Visit https://laxminarayan24.github.io/Happy-Birthday/ to see your changes!
 
-📖 See [QUICK_START.md](QUICK_START.md) for commands | [WORKFLOW_DIAGRAM.md](WORKFLOW_DIAGRAM.md) for visual guide | [DEPLOYMENT.md](DEPLOYMENT.md) for full details
+📖 **Terminal Commands:** [DEPLOYMENT_COMMANDS.md](DEPLOYMENT_COMMANDS.md) | **Quick Start:** [QUICK_START.md](QUICK_START.md) | **Visual Guide:** [WORKFLOW_DIAGRAM.md](WORKFLOW_DIAGRAM.md) | **Full Details:** [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ## 🌐 Live Demo
 
