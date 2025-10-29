@@ -8,7 +8,7 @@ The repository is configured with GitHub Actions to automatically deploy to GitH
 
 1. When code is pushed to the `main` branch, the GitHub Actions workflow triggers
 2. The workflow builds and deploys the `happy-birthday-animation` directory to GitHub Pages
-3. The site becomes available at: `https://LAXMINARAYAN24.github.io/Happy-Birthday/`
+3. The site becomes available at: `https://laxminarayan24.github.io/Happy-Birthday/`
 
 ## Setting Up GitHub Pages (One-Time Setup)
 
