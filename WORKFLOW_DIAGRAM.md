@@ -40,13 +40,13 @@
 
 ## Key Takeaways
 
-| Question | Answer |
-|----------|--------|
-| Which branch triggers deployment? | **Only `main` branch** |
-| How long does deployment take? | **1-2 minutes** |
-| Is deployment automatic? | **Yes, via GitHub Actions** |
-| Do I need to do anything special? | **No, just push to main** |
-| Where can I check deployment status? | **GitHub Actions tab** |
+| Question                          | Answer                        |
+|-----------------------------------|-------------------------------|
+| Which branch triggers deployment? | **Only `main` branch**        |
+| How long does deployment take?    | **1-2 minutes**               |
+| Is deployment automatic?          | **Yes, via GitHub Actions**   |
+| Do I need to do anything special? | **No, just push to main**     |
+| Where can I check deployment status? | **GitHub Actions tab**    |
 
 ## Common Scenarios
 
@@ -124,7 +124,7 @@ Wait 2-3 minutes total
 
 ### View the Live Site:
 - URL: https://laxminarayan24.github.io/Happy-Birthday/
-- Refresh: Ctrl+Shift+R (hard refresh to bypass cache)
+- Refresh: `Ctrl+Shift+R` (hard refresh to bypass cache)
 
 ---
 
