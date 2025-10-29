@@ -1,3 +1,4 @@
+
 # Deployment Guide
 
 This guide explains how to deploy the Happy Birthday animation to GitHub Pages.
