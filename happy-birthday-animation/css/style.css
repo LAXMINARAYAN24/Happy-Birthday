@@ -1,0 +1,124 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background: radial-gradient(circle at 20% 10%, #2b0a00 0%, #12040a 60%, #0b0710 100%);
+  overflow: hidden;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* small footer/credit */
+p {
+  margin: 0;
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  color: #ffdca8;
+  font-size: 14px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+}
+p a {
+  color: #fff3d9;
+  text-decoration: none;
+  font-weight: 700;
+}
+p span { font-size: 12px; color: #ffdca8; opacity: 0.9; margin-left: 8px; }
+
+/* Toggle button (top-right) */
+#toggleCard {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 60; /* above canvas */
+  background: linear-gradient(180deg, rgba(255,220,120,0.12), rgba(255,220,120,0.06));
+  color: #fff3d9;
+  border: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+}
+#toggleCard:focus { outline: 2px solid rgba(255,200,80,0.9); outline-offset: 3px; }
+
+/* Card overlay (centered) */
+#cardOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* when hidden */
+}
+/* stronger dim + blur so the translucent card reads clearly */
+#cardOverlay.visible {
+  background: rgba(6,4,8,0.72);
+  pointer-events: auto;
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+}
+/* keep it removed from layout when hidden */
+#cardOverlay.hidden { display: none; }
+
+/* Provide modest sizing for the greeting-card element (component styles inside component shadow DOM) */
+greeting-card {
+  width: min(880px, 92vw);
+  max-width: 920px;
+  pointer-events: auto;
+  /* small lift so card doesn't visually sit flush with dim layer */
+  transform: translateZ(0);
+}
+
+/* Timer panel collapsed state -> show small clock icon */
+#timerPanel.collapsed {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(255,220,120,0.12), rgba(255,180,60,0.08));
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+/* hide inner controls and countdown when collapsed */
+#timerPanel.collapsed input,
+#timerPanel.collapsed #timerControls,
+#timerPanel.collapsed #countdown {
+  display: none !important;
+}
+
+/* clock button shown inside collapsed panel */
+.clock-button {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 0;
+  background: linear-gradient(180deg,#ffd24d,#ffb84d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.28);
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+}
+.clock-button:focus { outline: 2px solid rgba(255,200,80,0.95); outline-offset: 2px; }
+
+/* keep visual consistency on small screens */
+@media (max-width:420px) {
+  #timerPanel { right: 8px; top: 64px; }
+  #timerPanel.collapsed { width: 40px; height: 40px; }
+}

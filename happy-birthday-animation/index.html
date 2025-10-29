@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Happy Birthday</title>
+</head>
+<body>
+  <canvas id="c" aria-label="Happy Birthday"></canvas>
+
+  <p>
+    <a href="#" target="_blank">Happy Birthday 🎉</a>
+    <span>• Made with ❤️</span>
+  </p>
+
+  <!-- Toggle button to show/hide the greeting card -->
+  <button id="toggleCard" aria-pressed="false" aria-controls="cardOverlay">Show Greeting Card</button>
+
+  <!-- Timer panel:
+       - Uses a hard-coded time in the script (edit CODED_OPEN_AT below).
+       - Shows a countdown until that code-time passes.
+       - Once the coded time has passed (or when countdown reaches 0) the panel is replaced
+         with a manual timer UI (input + Set/Clear) so you can schedule further opens.
+  -->
+  <div id="timerPanel" aria-live="polite" style="position:fixed; top:72px; right:16px; z-index:70; background: rgba(0,0,0,0.36); color:#fff; padding:8px 10px; border-radius:8px; font-family:inherit;">
+    <!-- countdown-only area shown initially while code-time is in the future -->
+    <div id="codeCountdown" style="margin-bottom:6px; font-size:13px; opacity:0.95;">Loading countdown…</div>
+
+    <!-- Manual timer UI: hidden until code-time has passed -->
+    <div id="manualTimer" style="display:none;">
+      <input id="openAt" type="datetime-local" style="border-radius:6px;padding:6px;border:0;font-size:13px; display:block; margin-bottom:8px;" />
+      <div id="timerControls" style="margin-top:0; display:flex; gap:8px; align-items:center;">
+        <button id="setTimer" style="padding:6px 8px;border-radius:6px;border:0;background:#ffd24d;color:#3a2200;font-weight:700;cursor:pointer;">Set Timer</button>
+        <button id="clearTimer" style="padding:6px 8px;border-radius:6px;border:0;background:#6b6b6b;color:#fff;cursor:pointer;">Clear</button>
+      </div>
+      <div id="countdown" style="margin-top:8px;font-size:13px;opacity:0.95;">No timer set</div>
+    </div>
+  </div>
+
+  <!-- overlay container for the greeting card (hidden by default) -->
+  <div id="cardOverlay" class="hidden" role="dialog" aria-modal="true" aria-label="Greeting card dialog">
+    <greeting-card name="Geetu" message="HAPPY BIRTHDAY"></greeting-card>
+  </div>
+
+  <!-- greeting-card web component -->
+  <script type="module" src="js/greeting-card.js"></script>
+
+  <!-- existing canvas animation -->
+  <script src="js/script.js"></script>
+
+  <!-- inline script: code-time countdown + manual timer reveal -->
+  <script>
+    (function () {
+      const btn = document.getElementById('toggleCard');
+      const overlay = document.getElementById('cardOverlay');
+      function setState(show) {
+        const visible = !!show;
+        // update toggle button state and label
+        btn.setAttribute('aria-pressed', String(visible));
+        btn.textContent = visible ? 'Hide Greeting Card' : 'Show Greeting Card';
+        // keep both classes in sync so CSS rules that depend on either work
+        overlay.classList.toggle('hidden', !visible);
+        overlay.classList.toggle('visible', visible);
+        // optional: move focus to the overlay for accessibility when opened
+        if (visible) {
+          // try to focus dialog container so screen readers announce it
+          overlay.focus?.();
+        }
+      }
+      window.showGreeting = () => setState(true);
+      window.hideGreeting = () => setState(false);
+      btn.addEventListener('click', () => setState(overlay.classList.contains('hidden')));
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('visible')) setState(false); });
+
+      /* =====
+         Replace "code-time" here. Set CODED_OPEN_AT to the Date/time you want the greeting
+         to auto-open. Use a local ISO-like string or a Date object:
+           // Example (local time):
+           const CODED_OPEN_AT = new Date('2025-10-28T18:15:00');
+      ===== */
+      const CODED_OPEN_AT = new Date('2025-10-28T18:15:00'); // <-- edit this time in code
+
+      const codeCountdownEl = document.getElementById('codeCountdown');
+      const manualPanel = document.getElementById('manualTimer');
+
+      // manual timer elements (appear after coded time)
+      const input = document.getElementById('openAt');
+      const setBtn = document.getElementById('setTimer');
+      const clearBtn = document.getElementById('clearTimer');
+      const countdownEl = document.getElementById('countdown');
+
+      let codeTick = null;
+      let manualTimerId = null;
+      let manualTick = null;
+
+      function formatDiff(ms) {
+        if (ms <= 0) return '0s';
+        const s = Math.floor(ms / 1000);
+        const days = Math.floor(s / 86400); const hours = Math.floor((s % 86400) / 3600);
+        const mins = Math.floor((s % 3600) / 60); const secs = s % 60;
+        const parts = [];
+        if (days) parts.push(days + 'd');
+        if (hours) parts.push(hours + 'h');
+        if (mins) parts.push(mins + 'm');
+        parts.push(secs + 's');
+        return parts.join(' ');
+      }
+
+      function openGreetingNow() {
+        window.showGreeting();
+      }
+
+      // CODED COUNTDOWN: show countdown until CODED_OPEN_AT.
+      function startCodedCountdown() {
+        if (!CODED_OPEN_AT || isNaN(CODED_OPEN_AT)) {
+          codeCountdownEl.textContent = 'No coded time set';
+          revealManual(); // fall back to manual immediately
+          return;
+        }
+        updateCodeTick();
+        codeTick = setInterval(updateCodeTick, 1000);
+      }
+
+      function updateCodeTick() {
+        const diff = CODED_OPEN_AT.getTime() - Date.now();
+        if (diff <= 0) {
+          // time reached -> open greeting, stop coded ticker, reveal manual UI in place of countdown
+          if (codeTick) { clearInterval(codeTick); codeTick = null; }
+          openGreetingNow();
+          // show brief 0s then reveal manual controls
+          codeCountdownEl.textContent = 'Opens in: 0s';
+          setTimeout(revealManual, 800);
+          return;
+        }
+        codeCountdownEl.textContent = 'Opens in: ' + formatDiff(diff);
+      }
+
+      function revealManual() {
+        // hide countdown-only area and show manual timer UI
+        codeCountdownEl.style.display = 'none';
+        manualPanel.style.display = 'block';
+        // populate input with now+1 minute default (local)
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + 1);
+        input.value = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,16);
+        countdownEl.textContent = 'No timer set';
+      }
+
+      /* ===== Manual timer logic (simple) ===== */
+      function clearManualTimer() {
+        if (manualTimerId) { clearTimeout(manualTimerId); manualTimerId = null; }
+        if (manualTick) { clearInterval(manualTick); manualTick = null; }
+        countdownEl.textContent = 'No timer set';
+      }
+
+      function scheduleManual(date) {
+        clearManualTimer();
+        const ms = date.getTime() - Date.now();
+        if (ms <= 0) {
+          openGreetingNow();
+          countdownEl.textContent = 'Opens in: 0s';
+          return;
+        }
+        manualTimerId = setTimeout(() => {
+          openGreetingNow();
+          clearManualTimer();
+        }, ms);
+        manualTick = setInterval(() => {
+          const d = date.getTime() - Date.now();
+          countdownEl.textContent = 'Opens in: ' + formatDiff(d);
+          if (d <= 0) {
+            clearManualTimer();
+            countdownEl.textContent = 'Opens in: 0s';
+          }
+        }, 1000);
+        // immediately update
+        countdownEl.textContent = 'Opens in: ' + formatDiff(ms);
+      }
+
+      setBtn.addEventListener('click', () => {
+        const v = input.value;
+        if (!v) { alert('Choose a date and time.'); return; }
+        const selected = new Date(v);
+        if (isNaN(selected)) { alert('Invalid date/time'); return; }
+        scheduleManual(selected);
+      });
+
+      clearBtn.addEventListener('click', () => {
+        clearManualTimer();
+      });
+
+      // init: if coded time still in future show countdown-only, else show manual UI
+      if (CODED_OPEN_AT && !isNaN(CODED_OPEN_AT) && CODED_OPEN_AT.getTime() > Date.now()) {
+        manualPanel.style.display = 'none';
+        startCodedCountdown();
+      } else {
+        // coded time passed -> directly show manual UI
+        codeCountdownEl.style.display = 'none';
+        revealManual();
+      }
+
+    })();
+  </script>
+</body>
+</html>
