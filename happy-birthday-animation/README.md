@@ -20,6 +20,8 @@ The project consists of the following files:
 
 - `js/greeting-card.js`: Web component for displaying a personalized greeting card with interactive animations.
 
+- `js/countdown.js`: Responsible for controlling the full-screen countdown overlay. Safe: only runs when overlay elements exist in the DOM (guarded), and does not auto-open the greeting card. Keeps behavior identical to previous inline implementation.
+
 - `README.md`: This documentation file provides instructions on how to run the animation and any other relevant information.
 
 ## How to Run the Animation

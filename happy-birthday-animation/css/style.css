@@ -32,22 +32,32 @@ p a {
 p span { font-size: 12px; color: #ffdca8; opacity: 0.9; margin-left: 8px; }
 
 /* Toggle button (top-right) */
-#toggleCard {
+#toggleCard, .fancy-btn {
   position: fixed;
   top: 16px;
   right: 16px;
   z-index: 60; /* above canvas */
-  background: linear-gradient(180deg, rgba(255,220,120,0.12), rgba(255,220,120,0.06));
-  color: #fff3d9;
+  background: linear-gradient(180deg, #ffd24d, #ffb84d);
+  color: #3a2200;
   border: 0;
   padding: 10px 14px;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  font-weight: 700;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45), 0 2px 0 rgba(255,255,255,0.06) inset;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  transform-origin: center;
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
   backdrop-filter: blur(6px);
 }
-#toggleCard:focus { outline: 2px solid rgba(255,200,80,0.9); outline-offset: 3px; }
+.fancy-btn .icon { display:inline-flex; width:18px; height:18px; align-items:center; justify-content:center; color: #4b2a00; }
+.fancy-btn .label { font-size:14px; display:inline-block; color:#4b2a00; }
+.fancy-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.55); filter: brightness(1.02); }
+.fancy-btn:active { transform: translateY(-1px) scale(.995); }
+.fancy-btn:focus { outline: 3px solid rgba(255,200,80,0.95); outline-offset:3px; }
 
 /* Card overlay (centered) */
 #cardOverlay {
@@ -116,6 +126,41 @@ greeting-card {
   padding: 0;
 }
 .clock-button:focus { outline: 2px solid rgba(255,200,80,0.95); outline-offset: 2px; }
+
+/* countdown overlay - sits above the page until timer completes */
+#countdownOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8,10,12,0.95);
+  color: #fff;
+  z-index: 9999;
+  padding: 24px;
+  text-align: center;
+  -webkit-font-smoothing:antialiased;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+#countdownOverlay .panel {
+  max-width: 720px;
+  width: 100%;
+  background: rgba(0,0,0,0.35);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+}
+#countdownGrid { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
+.timeBox {
+  min-width:88px;
+  padding:14px 12px;
+  border-radius:10px;
+  background: rgba(255,255,255,0.04);
+}
+.timeBox .value { font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size:36px; font-weight:700; }
+.timeBox .label { font-size:12px; color:rgba(255,255,255,0.75); letter-spacing:1px; margin-top:6px; text-transform:uppercase; }
+#completionMessageOverlay { display:none; font-size:22px; font-weight:700; color:#9ae6b4; margin-top:18px; }
 
 /* keep visual consistency on small screens */
 @media (max-width:420px) {
