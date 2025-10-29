@@ -2,6 +2,19 @@
 
 A beautiful web-based birthday animation with colorful letters and fireworks! Send this to your friends to celebrate their special day.
 
+## 🚀 How to Make Your Changes Go Live
+
+**Quick Answer:** Push your changes to the `main` branch, wait 1-2 minutes, and your changes will automatically appear on the live site!
+
+**Detailed Steps:**
+1. Make your code changes
+2. Test locally by opening `happy-birthday-animation/index.html` in a browser  
+3. Commit and push to `main` (or merge your branch into `main`)
+4. GitHub Actions will automatically deploy in 1-2 minutes
+5. Visit https://laxminarayan24.github.io/Happy-Birthday/ to see your changes!
+
+📖 See [QUICK_START.md](QUICK_START.md) for commands | [WORKFLOW_DIAGRAM.md](WORKFLOW_DIAGRAM.md) for visual guide | [DEPLOYMENT.md](DEPLOYMENT.md) for full details
+
 ## 🌐 Live Demo
 
 Visit the live site: **https://laxminarayan24.github.io/Happy-Birthday/**
