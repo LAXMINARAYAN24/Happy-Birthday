@@ -164,6 +164,13 @@ greeting-card {
 .timeBox .label { font-size:12px; color:rgba(255,255,255,0.75); letter-spacing:1px; margin-top:6px; text-transform:uppercase; }
 #completionMessageOverlay { display:none; font-size:22px; font-weight:700; color:#9ae6b4; margin-top:18px; }
 
+/* Hide elements marked with data-hide-on-card when card is open */
+body.card-open [data-hide-on-card] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 /* keep visual consistency on small screens */
 @media (max-width:420px) {
   #timerPanel { right: 8px; top: 64px; }
